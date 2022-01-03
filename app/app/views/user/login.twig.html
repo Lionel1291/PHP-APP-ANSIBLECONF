@@ -1,0 +1,54 @@
+{% extends "base/layout.twig.html" %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-md-5 mx-auto">
+        <div class="card card-body bg-light mt-5">
+
+            <h2>Login</h2>
+            <p>Bitte dieses Formular ausfüllen für einen Login</p>
+            <form action="{{ urlroot }}/Users/login" method="post">
+
+
+                <div class="form-group">
+                    <label for="email">Email: <sup>*</sup></label>
+                    {% if data.email_err is empty %}
+                    <input class="form-control form-control-lg" name="email" type="email" value="{{ data.email }}">
+                    {% else %}
+                    <input class="form-control form-control-lg is-invalid" name="email" type="email"
+                           value="{{ data.email }}">
+                    <span class="invalid-feedback"> {{ data.email_err }}</span>
+                    {% endif %}
+                </div>
+
+
+                <div class="form-group">
+                    <label for="password">Passwort: <sup>*</sup></label>
+                    {% if data.password_err is empty %}
+                    <input class="form-control form-control-lg" name="password" type="password"
+                           value="{{ data.password }}">
+                    {% else %}
+                    <input class="form-control form-control-lg is-invalid" name="password" type="password"
+                           value="{{ data.password }}">
+                    <span class="invalid-feedback"> {{ data.password_err }}</span>
+                    {% endif %}
+                </div>
+
+
+                <div class="row">
+                    <div class="col">
+                        <input class="btn btn-success btn-block" type="submit" value="Login">
+                    </div>
+                    <div class="col">
+                        <a class="btn btn-light btn-block" href="{{ urlroot }}/Users/register">Noch keinen Account? Zur
+                            Register-Page</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

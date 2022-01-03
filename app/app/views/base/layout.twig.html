@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="de">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+    <meta content="" name="description">
+    <meta content="" name="author">
+
+    <title>{{ title }}</title>
+
+    {% block stylesheets %}
+    <!--<link rel="stylesheet" type="text/css" href="{{ urlroot }}/css/sticky-footer-navbar.css"/>-->
+    <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" rel="stylesheet">
+    <link href="https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+
+    {% endblock %}
+
+</head>
+
+<body>
+
+<!-- Include der Navbar -->
+{{ include('base/header.twig.html') }}
+
+
+<!-- Begin page content -->
+<main class="container" role="main">
+
+    <!-- Der Content Block kann von Subtemplates überschrieben werden -->
+    {% block content %}
+
+    <h1>Index</h1>
+    <p class="important">
+        Sie sind auf eine Unbekannte Seite gestossen!!!
+    </p>
+
+    {% endblock %}
+
+</main>
+
+
+<!-- Include Footer -->
+{{ include('base/footer.twig.html') }}
+
+<!-- Include von js-Imports -->
+{{ include('base/corejs.twig.html') }}
+</body>
+
+</html>

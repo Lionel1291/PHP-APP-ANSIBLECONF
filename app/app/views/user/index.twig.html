@@ -1,0 +1,62 @@
+{% extends "base/layout.twig.html" %}
+
+{% block content %}
+
+<!-- Wir überschreiben den Content-Block -->
+<h1 class="mt-5">Benutzerliste: </h1>
+
+<table class="table">
+    <thead class="thead-dark">
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Email</th>
+        <th scope="col">Erstellt</th>
+        <th scope="col">Berechtigung ändern</th>
+        <th scope="col">Löschen</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    {% for row in data %}
+
+    <tr>
+        <th scope="row">{{ row.id }}</th>
+        <td>{{ row.name }}</td>
+        <td>{{ row.email }}</td>
+        <td>{{ row.created_at }}</td>
+        {% if row.id == 1 %}
+        <td colspan="2"><p style="color: red">Default admin</p></td>
+        {% elseif session.user_id == row.id %}
+        <td colspan="2"><p style="color: red">Aktuell eingeloggter User</p></td>
+        {% else %}
+        {% if 'admin' in row.roles %}
+        <td>
+            <form action="{{ urlroot }}/Users/changeUserPriv" method="post">
+                <button class="btn btn-info" name="setUser" type="submit" value="{{ row.id }}">Zum User machen</button>
+            </form>
+        </td>
+        {% else %}
+        <td>
+            <form action="{{ urlroot }}/Users/changeUserPriv" method="post">
+                <button class="btn btn-info" name="setAdmin" type="submit" value="{{ row.id }}">Zum Admin & User
+                    machen
+                </button>
+            </form>
+        </td>
+        {% endif %}
+        <td>
+            <form action="{{ urlroot }}/Users/deleteUser" method="post">
+                <button class="btn btn-info" name="delete" type="submit" value="{{ row.id }}">User und seine Configs
+                    löschen
+                </button>
+            </form>
+        </td>
+        {% endif %}
+    </tr>
+
+    {% endfor %}
+
+    </tbody>
+</table>
+{% endblock %}

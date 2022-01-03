@@ -1,0 +1,97 @@
+{% extends "base/layout.twig.html" %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-md-7 mx-auto">
+        <div class="card card-body bg-light mt-5">
+            <h2>Neuer Command</h2>
+            <p>Wählen Sie bitte die entsprechenden Optionen</p>
+
+            <form action="{{ urlroot }}/Command/add" method="post">
+
+
+                <div class="form-group">
+                    <label for="name">Name: <sup>*</sup></label>
+                    {% if data.name_err is empty %}
+                    <input class="form-control form-control-lg" name="name" required type="text"
+                           value="{{ data.name }}">
+                    {% else %}
+                    <input class="form-control form-control-lg is-invalid" name="name" required
+                           type="text" value="{{ data.name }}">
+                    <span class="text-danger"> {{ data.name_err }}</span>
+                    {% endif %}
+                </div>
+
+
+                <div class="form-group">
+                    <label for="prevalue">Prevalue: <sup>*</sup></label>
+                    {% if data.prevalue_err is empty %}
+                    <input class="form-control form-control-lg" name="prevalue" required type="text"
+                           value="{{ data.prevalue }}">
+                    {% else %}
+                    <input class="form-control form-control-lg is-invalid" name="prevalue" required
+                           type="text" value="{{ data.prevalue }}">
+                    <span class="text-danger"> {{ data.prevalue_err }}</span>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="postvalue">Postvalue:</label>
+                    {% if data.postvalue_err is empty %}
+                    <input class="form-control form-control-lg" name="postvalue" type="text"
+                           value="{{ data.postvalue }}">
+                    {% else %}
+                    <input class="form-control form-control-lg is-invalid" name="postvalue" type="text"
+                           value="{{ data.postvalue }}">
+                    <span class="text-danger"> {{ data.postvalue_err }}</span>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="enable">Option wählen: <sup>*</sup></label>
+                    {% if data.enable_err is empty %}
+                    <select class="custom-select my-1 mr-sm-2" id="enable" name="enable" required>
+                        {% if data.enable == 2 %}
+                        <option value="2">Aktiviert</option>
+                        <option value="3">Deaktiviert</option>
+                        {% else %}
+                        <option selected value="3">Deaktiviert</option>
+                        <option value="2">Aktiviert</option>
+                        {% endif %}
+                    </select>
+                    {% else %}
+                    <select class="custom-select my-1 mr-sm-2 is-invalid" id="enable" name="enable" required>
+                        {% if data.enable == 1 %}
+                        <option selected value="2">Aktiviert</option>
+                        <option value="3">Deaktiviert</option>
+                        {% else %}
+                        <option selected value="3">Deaktiviert</option>
+                        <option value="2">Aktiviert</option>
+                        {% endif %}
+                    </select>
+                    <span class="text-danger"> {{ data.enable_err }}</span>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="comment">Bemerkung:</label>
+                    <textarea class="form-control form-control-lg" name="comment" rows="5"
+                              value="{{ data.comment }}"></textarea>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <input class="btn btn-success btn-block" type="submit" value="Command speichern">
+                    </div>
+                    <div class="col">
+                        <a class="btn btn-primary pull-right" href="{{ urlroot }}/Command" role="button">Cancel</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends "base/layout.twig.html" %}
+
+{% block content %}
+
+<div class="container">
+    <div class="center-block">
+        <br>
+        <h1 class="mt-5">Aktuelle Commands: </h1>
+        <br>
+    </div>
+</div>
+<table class="table table-hover">
+    <thead class="thead-dark">
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Prevalue</th>
+        <th scope="col">Postvalue</th>
+        <th scope="col">Status</th>
+        <th scope="col">Kommentar</th>
+        <th scope="col"></th>
+        <th scope="col"><a class="btn btn-primary pull-right" href="{{ urlroot }}/Command/add" role="button">Add</a>
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    {% if data is empty %}
+    <th colspan="8">Keine Daten vorhanden!</th>
+    {% else %}
+    {% for command in data %}
+    <tr>
+        <th scope="row">{{ command.id }}</th>
+        <td>{{ command.name }}</td>
+        <td>{{ command.prevalue }}</td>
+        <td>{{ command.postvalue }}</td>
+        <td>
+            {% if command.enable != true %}
+            <p style="color: red">Config deaktiviert</p>
+            {% else %}
+            <p style="color: green">Config aktiviert</p>
+            {% endif %}
+        </td>
+        <td>{{ command.comment }}</td>
+        <td>
+            <form action="{{ urlroot }}/Command/edit" method="post">
+                <button class="btn btn-warning" name="edit" type="submit" value="{{ command.id }}">Edit</button>
+            </form>
+        </td>
+        <td>
+            <form action="{{ urlroot }}/Command/delete" method="post">
+                <button class="btn btn-danger" name="delete" type="submit" value="{{ command.id }}">Delete</button>
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+    {% endif %}
+    </tbody>
+</table>
+{% endblock %}

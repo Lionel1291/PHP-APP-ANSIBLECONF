@@ -1,0 +1,80 @@
+{% extends "base/layout.twig.html" %}
+
+{% block content %}
+
+<div class="container">
+    <div class=center-block">
+        <br>
+        <h1 class="mt-5">Aktuelle Konfigurationen Admin: </h1>
+        <br>
+    </div>
+</div>
+
+<table class="table table-hover">
+    <thead class="thead-dark">
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Version</th>
+        <th scope="col">Name</th>
+        <th scope="col">Hosts</th>
+        <th scope="col">Befehlname</th>
+        <th scope="col">Befehl Wert</th>
+        <th scope="col">Userid</th>
+        <th scope="col">Erstellt am</th>
+        <th scope="col">Geändert am</th>
+        <th scope="col">Kommentar</th>
+        <th scope="col">Status</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+    </tr>
+    </thead>
+    <tbody>
+    {% if data is empty %}
+    <th colspan="13">Keine Daten vorhanden!</th>
+    {% else %}
+    {% for dataitem in data %}
+    <tr>
+        <th scope="row">{{ dataitem.id }}</th>
+        <td>{{ dataitem.version }}</td>
+        <td>{{ dataitem.name }}</td>
+        <td>{{ dataitem.hosts }}</td>
+        <td>{{ dataitem.command }}</td>
+        <td>{{ dataitem.commandvalue }}</td>
+        <td>{{ dataitem.userid }}</td>
+        <td>{{ dataitem.create }}</td>
+        <td>{{ dataitem.lastmodify }}</td>
+        <td>{{ dataitem.comment }}</td>
+        <td>
+            {% if dataitem.approved == 2 %}
+            <p style="color: green">Bestätigt</p>
+            {% elseif dataitem.approved == 3 %}
+            <p style="color: red">Abgelehnt</p>
+            {% else %}
+            <p style="color: blue">Noch nicht überprüft</p>
+            {% endif %}
+        </td>
+        <td>
+            <form action="{{ urlroot }}/Configadmin/view" method="post">
+                {% if dataitem.approved == 2 or dataitem.approved == 3 %}
+                <button class="btn btn-primary" disabled type="button">View</button>
+                {% else %}
+                <button class="btn btn-primary" name="view" type="submit" value="{{ dataitem.id }}">View</button>
+                {% endif %}
+            </form>
+        </td>
+        <td>
+            <form action="{{ urlroot }}/Configadmin/delete" method="post">
+                {% if dataitem.approved == 2 or dataitem.approved == 3 %}
+                <button class="btn btn-danger" disabled type="button">Delete</button>
+                {% else %}
+                <button class="btn btn-danger" name="delete" type="submit" value="{{ dataitem.id }}">Delete</button>
+                {% endif %}
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+    {% endif %}
+
+    </tbody>
+</table>
+{% endblock %}

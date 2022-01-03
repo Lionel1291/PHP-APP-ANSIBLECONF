@@ -1,0 +1,21 @@
+{% extends "base/layout.twig.html" %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-md-7 mx-auto">
+        <div class="card card-body bg-light mt-5">
+            <h2 class="card-title">View</h2>
+            <div class="card">
+                <div class="card-body">
+                    <pre>{{ yaml }}</pre>
+                </div>
+            </div>
+            <div class="card-footer">
+                <a class="btn btn-info pull-right" href="{{ urlroot }}/Config" role="button">Cancel</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

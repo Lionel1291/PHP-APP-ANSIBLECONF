@@ -1,0 +1,38 @@
+{% extends "base/layout.twig.html" %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-md-7 mx-auto">
+        <div class="card card-body bg-light mt-5">
+            <h2 class="card-title">View</h2>
+            <div class="card">
+                <div class="card-body">
+                    <pre>{{ yaml }}</pre>
+                </div>
+            </div>
+            <div class="card-footer">
+                <form action="{{ urlroot }}/Configadmin/change" method="post">
+                    <div class="form-group">
+                        <label for="comment">Kommentar</label>
+                        {% if comment_err is empty %}
+                        <textarea class="form-control" id="comment" name="comment" rows="3"></textarea>
+                        {% else %}
+                        <textarea class="form-control is-invalid" id="comment" name="comment" rows="3"></textarea>
+                        <span class="text-danger"> {{ comment_err }}</span>
+                        {% endif %}
+                    </div>
+                    <button class="btn btn-success" name="commit" type="submit" value="{{ id }}">Konfiguration
+                        bestätigen
+                    </button>
+                    <button class="btn btn-danger" name="dismiss" type="submit" value="{{ id }}">Konfiguration
+                        ablehnen
+                    </button>
+                    <button class="btn btn-info" name="cancel" type="submit" value="{{ id }}">Abbrechen</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
